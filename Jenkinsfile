@@ -22,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Beispiel für das Ausführen automatisierter Tests
-		sh 'sshpass -p "root" scp /var/lib/jenkins/tests.sh root@192.168.2.110:/root/14A1/tests'
+		sh 'sshpass -p "root" scp /home/juan/buildroot/14A1/tests/tests.sh root@192.168.2.110:/root/14A1/tests'
                 sh 'sshpass -p "root" ssh root@192.168.2.110 "cd /root/14A1/tests && ./tests.sh"'
             }
         }
