@@ -1,5 +1,5 @@
 #!/bin/bash
-./root/14A1/main > output.txt
+./root/14A1/src/main > output.txt
 if grep -q "Hello, Embedded Linux World!" output.txt; then
     echo "Test passed."
     exit 0
