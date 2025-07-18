@@ -40,7 +40,7 @@ pipeline {
         stage('Monitoring') {
             steps {
                 // Monitoring-Schritt (Beispiel: Prüfen der Systemlogs)
-                sh 'sshpass -p "root" ssh root@192.168.2.110 "tail -n 50 /var/log/dmesg"'
+                sh 'sshpass -p "root" ssh root@192.168.2.110 "tail -n 50 /var/log/messages"'
             }
         }
     }
