@@ -16,14 +16,14 @@ pipeline {
         stage('Deploy on Board') {
             steps {
                 // Beispiel für das Übertragen der Build-Artefakte
-                sh 'scp main root@192.168.2.115:/root/14A1'
+                sh 'sshpass -p "root" scp main root@192.168.2.110:/root/14A1'
             }
         }
         stage('Test') {
             steps {
                 // Beispiel für das Ausführen automatisierter Tests
-		sh 'scp test.sh root@192.168.2.115:/root/14A1/tests'
-                sh 'ssh root@192.168.2.115 "cd /root/14A1/tests && ./test.sh"'
+		sh 'scp test.sh root@192.168.2.110:/root/14A1/tests'
+                sh 'ssh root@192.168.2.110 "cd /root/14A1/tests && ./test.sh"'
             }
         }
         stage('Code Integration') {
@@ -36,13 +36,13 @@ den Hauptzweig
 	stage('Deployment') {
             steps {
                 // Automatisierte Bereitstellung und Monitoring
-                sh 'ssh root@192.168.2.115 "cd /root/14A1/ && ./main &"'
+                sh 'ssh root@192.168.2.110 "cd /root/14A1/ && ./main &"'
             }
         }
         stage('Monitoring') {
             steps {
                 // Monitoring-Schritt (Beispiel: Prüfen der Systemlogs)
-                sh 'ssh root@192.168.2.115 "tail -f /var/log/syslog"'
+                sh 'ssh root@192.168.2.110 "tail -f /var/log/syslog"'
             }
         }
     }
@@ -53,7 +53,7 @@ den Hauptzweig
         failure {
 	    // Rollback im Falle eines Fehlers
 	    echo '❌ Error: Build o test falló.'
-	    sh 'scp rollback.sh root@192.168.2.115:/root/14A1'
+	    sh 'scp rollback.sh root@192.168.2.110:/root/14A1'
             sh 'ssh root@192.168.2.115 "bash /root/14A1/rollback.sh"'
         }
 	success {
