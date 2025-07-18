@@ -28,9 +28,7 @@ pipeline {
         }
         stage('Code Integration') {
             steps {
-                // Beispiel für das Zusammenführen der getesteten Software in
-den Hauptzweig
-                sh 'git merge'
+                echo 'No integration step defined yet'
             }
         }
 	stage('Deployment') {
@@ -42,12 +40,14 @@ den Hauptzweig
         stage('Monitoring') {
             steps {
                 // Monitoring-Schritt (Beispiel: Prüfen der Systemlogs)
-                sh 'sshpass -p "root" ssh root@192.168.2.110 "tail -f /var/log/syslog"'
+                sh 'sshpass -p "root" ssh root@192.168.2.110 "tail -n 50 /var/log/syslog"'
             }
         }
     }
 	post {
 	always {
+	    // Crea carpeta si no existe
+            sh 'sshpass -p "root" mkdir -p build && cp main build/'	            
             archiveArtifacts artifacts: 'build/**', fingerprint: true
         }
         failure {
