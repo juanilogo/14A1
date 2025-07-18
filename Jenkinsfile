@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '/home/juan/buildroot/output/host/usr/bin/arm-linux-gcc -o main main.c -static'
+                sh 'cd /home/juan/buildroot/14A1'
+		sh '/home/juan/buildroot/output/host/usr/bin/arm-linux-gcc -o main main.c -static'
             }
         }
         stage('Deploy on Board') {
