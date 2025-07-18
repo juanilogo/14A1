@@ -9,9 +9,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cd /home/juan/buildroot/14A1'
 		sh 'echo "Estoy en: $(pwd)"'
-		sh '/home/juan/buildroot/output/host/usr/bin/arm-linux-gcc -o main main.c -static'
+		sh '/home/juan/buildroot/output/host/usr/bin/arm-linux-gcc -o main /home/juan/buildroot/14A1/main.c -static'
             }
         }
         stage('Deploy on Board') {
